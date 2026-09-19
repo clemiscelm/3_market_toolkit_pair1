@@ -20,9 +20,9 @@ newer is required.
 
 ```bash
 git clone <repository-url>
-cd market-toolkit
+cd 3_market_toolkit_pair1
 python -m venv .venv
-\.\.venv\Scripts\Activate.ps1
+.venv\Scripts\Activate.ps1 # On windows
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
