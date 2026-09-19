@@ -19,17 +19,17 @@
 
 # TODO 1: turn on strict mode so any error stops the script immediately.
 #         Uncomment the next line:
-# set -euo pipefail
+set -euo pipefail
 
 # TODO 2: set the input directory. Use double quotes.
-INPUT_DIR=""
+INPUT_DIR="data/raw"
 
 # TODO 3: set the log directory.
-LOG_DIR=""
+LOG_DIR="logs"
 
 # TODO 4: build the log filename using today's date.
 #         HINT:   $(date +%F)   gives you "2026-09-11".
-LOG_FILE=""
+LOG_FILE="$LOG_DIR/fetch_$(date +%F).log"
 
 # TODO 5: make sure the log directory exists.
 #         HINT:   mkdir -p "$LOG_DIR"
