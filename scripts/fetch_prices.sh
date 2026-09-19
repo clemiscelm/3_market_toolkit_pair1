@@ -85,5 +85,15 @@ fi
 #                 echo "total: $count files"
 #             } | tee "$LOG_FILE"
 
-echo "fetch_prices.sh — starter. Follow the TODOs above." >&2
-exit 1
+{
+	echo "fetch_prices — $(date +%F)"
+	echo "input: $INPUT_DIR"
+	count=0
+	for f in "${files[@]}"; do
+		ticker=$(basename "$f" .csv)
+		rows=$(( $(wc -l < "$f") - 1 ))
+		echo "  $ticker: $rows rows"
+		count=$((count + 1))
+	done
+	echo "total: $count files"
+} | tee "$LOG_FILE"
