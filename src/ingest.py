@@ -54,18 +54,20 @@ def load_prices(path):
     # TODO 1: convert  path  into a Path object so you can use  .stem
     #         (Path('data/raw/aapl.csv').stem  →  'aapl')
     #         >>> path = Path(path)
+    path = Path(path)
 
     # TODO 2: read the CSV with pd.read_csv(path, parse_dates=['date'])
     #         The  parse_dates  argument makes the date column datetime automatically.
     #         >>> df = pd.read_csv(path, parse_dates=['date'])
+    df = pd.read_csv(path, parse_dates=['date'])
 
     # TODO 3: add a 'ticker' column set to  path.stem.lower()
     #         >>> df['ticker'] = path.stem.lower()
+    df['ticker'] = path.stem.lower()
 
     # TODO 4: reorder columns to  ['date', 'ticker', 'close']  and return
     #         >>> return df[['date', 'ticker', 'close']]
-
-    raise NotImplementedError("load_prices — see the TODOs above")
+    return df[['date', 'ticker', 'close']]
 
 
 def clean_prices(df):
