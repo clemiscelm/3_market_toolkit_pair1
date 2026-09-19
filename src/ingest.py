@@ -136,9 +136,14 @@ def load_all_prices(folder):
 
     # TODO 2: raise FileNotFoundError if the folder doesn't exist
     #         HINT:  if not folder.is_dir(): raise FileNotFoundError(f"...")
+    if not folder.is_dir():
+        raise FileNotFoundError(f"{folder} does not exist")
 
     # TODO 3: list the CSV files with  list(folder.glob('*.csv'))
     #         Then raise FileNotFoundError if the list is empty.
+    csv_files = list(folder.glob('*.csv'))
+    if not csv_files:
+        raise FileNotFoundError(f"No CSV files found in {folder}")
 
     # TODO 4: loop over the files, call  load_prices  on each,
     #         collect the DataFrames in a list.
@@ -146,9 +151,12 @@ def load_all_prices(folder):
     #             dfs = []
     #             for f in csv_files:
     #                 dfs.append(load_prices(f))
+    dfs = []
+    for file_path in csv_files:
+        dfs.append(load_prices(file_path))
 
     # TODO 5: combine with  pd.concat(dfs, ignore_index=True)
+    combined = pd.concat(dfs, ignore_index=True)
 
     # TODO 6: pass the combined DataFrame through  clean_prices  and return the result
-
-    raise NotImplementedError("load_all_prices — see the TODOs above")
+    return clean_prices(combined)
