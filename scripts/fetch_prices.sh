@@ -33,6 +33,7 @@ LOG_FILE="$LOG_DIR/fetch_$(date +%F).log"
 
 # TODO 5: make sure the log directory exists.
 #         HINT:   mkdir -p "$LOG_DIR"
+mkdir -p "$LOG_DIR"
 
 # TODO 6: check that the input directory exists.
 #         If not, print an error to stderr (with  >&2) and  exit 1
@@ -40,11 +41,22 @@ LOG_FILE="$LOG_DIR/fetch_$(date +%F).log"
 #                     echo "ERROR: $INPUT_DIR does not exist"  >&2
 #                     exit 1
 #                 fi
+if [ ! -d "$INPUT_DIR" ]; then
+	echo "ERROR: $INPUT_DIR does not exist" >&2
+	exit 1
+fi
 
 # TODO 7: check that at least one .csv file exists in the input directory.
 #         If not, error to stderr and exit 1.
 #         HINT:  count with:    shopt -s nullglob; files=("$INPUT_DIR"/*.csv); count=${#files[@]}
 #         (nullglob makes the glob expand to nothing if no matches, instead of the literal '*')
+shopt -s nullglob
+files=("$INPUT_DIR"/*.csv)
+count=${#files[@]}
+if [ "$count" -eq 0 ]; then
+	echo "ERROR: no CSV files found in $INPUT_DIR" >&2
+	exit 1
+fi
 
 # TODO 8: build the summary. Put the whole thing inside a  { ... }  block so
 #         you can  tee  it into the log file at the end.
