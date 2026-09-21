@@ -54,18 +54,20 @@ def load_prices(path):
     # TODO 1: convert  path  into a Path object so you can use  .stem
     #         (Path('data/raw/aapl.csv').stem  →  'aapl')
     #         >>> path = Path(path)
+    path = Path(path)
 
     # TODO 2: read the CSV with pd.read_csv(path, parse_dates=['date'])
     #         The  parse_dates  argument makes the date column datetime automatically.
     #         >>> df = pd.read_csv(path, parse_dates=['date'])
+    df = pd.read_csv(path, parse_dates=['date'])
 
     # TODO 3: add a 'ticker' column set to  path.stem.lower()
     #         >>> df['ticker'] = path.stem.lower()
+    df['ticker'] = path.stem.lower()
 
     # TODO 4: reorder columns to  ['date', 'ticker', 'close']  and return
     #         >>> return df[['date', 'ticker', 'close']]
-
-    raise NotImplementedError("load_prices — see the TODOs above")
+    return df[['date', 'ticker', 'close']]
 
 
 def clean_prices(df):
@@ -103,8 +105,10 @@ def clean_prices(df):
     #               .sort_values('date')
     #               .drop_duplicates()
     #               .reset_index(drop=True))
-
-    raise NotImplementedError("clean_prices — see the TODOs above")
+    return (df.dropna(subset=['close'])
+              .sort_values('date')
+              .drop_duplicates()
+              .reset_index(drop=True))
 
 
 def load_all_prices(folder):
@@ -132,9 +136,14 @@ def load_all_prices(folder):
 
     # TODO 2: raise FileNotFoundError if the folder doesn't exist
     #         HINT:  if not folder.is_dir(): raise FileNotFoundError(f"...")
+    if not folder.is_dir():
+        raise FileNotFoundError(f"{folder} does not exist")
 
     # TODO 3: list the CSV files with  list(folder.glob('*.csv'))
     #         Then raise FileNotFoundError if the list is empty.
+    csv_files = list(folder.glob('*.csv'))
+    if not csv_files:
+        raise FileNotFoundError(f"No CSV files found in {folder}")
 
     # TODO 4: loop over the files, call  load_prices  on each,
     #         collect the DataFrames in a list.
@@ -142,9 +151,12 @@ def load_all_prices(folder):
     #             dfs = []
     #             for f in csv_files:
     #                 dfs.append(load_prices(f))
+    dfs = []
+    for file_path in csv_files:
+        dfs.append(load_prices(file_path))
 
     # TODO 5: combine with  pd.concat(dfs, ignore_index=True)
+    combined = pd.concat(dfs, ignore_index=True)
 
     # TODO 6: pass the combined DataFrame through  clean_prices  and return the result
-
-    raise NotImplementedError("load_all_prices — see the TODOs above")
+    return clean_prices(combined)

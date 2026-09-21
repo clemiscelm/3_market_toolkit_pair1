@@ -9,13 +9,29 @@ Component B of MSA-DATI07-01 · Python Environments and Engineering Workflows.
 <!-- TODO (both partners): add your names below, one line each. -->
 <!-- This is one of the shared files — you WILL hit a merge conflict here. That is expected. -->
 
-- Partner A: _your name here_
-- Partner B: _your name here_
+- Partner A: Clément Bostyn
+- Partner B: _name of partner_
+- Partner C: _name of partner_
 
 ## Setup
 
-<!-- TODO (Partner A): write the exact commands a new teammate would run to get -->
-<!-- from a fresh clone to a working environment. Assume they have Python 3.11+. -->
+From a fresh clone, run the following commands from a terminal. Python 3.11 or
+newer is required.
+
+```bash
+git clone <repository-url>
+cd 3_market_toolkit_pair1
+python -m venv .venv
+.venv\Scripts\Activate.ps1 # On windows
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+After activation, verify the installation with:
+
+```bash
+python -m pytest tests/ -v
+```
 
 ## How to run
 
@@ -26,8 +42,8 @@ Component B of MSA-DATI07-01 · Python Environments and Engineering Workflows.
 
 <!-- TODO (both): describe what each folder is for. Keep it short — 1 line each. -->
 
-- `data/raw/` —
-- `src/` —
+- `data/raw/` — original CSV price data kept unchanged as the source for ingestion and analysis.
+- `src/` — Python source code for loading, cleaning, analyzing, and demonstrating the price data.
 - `scripts/` —
 - `tests/` —
 
