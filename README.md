@@ -25,6 +25,8 @@ python -m venv .venv
 .venv\Scripts\Activate.ps1 # On windows
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+#for mac: python3 -m venv venv  
+#for mac: source venv/bin/activate
 ```
 
 After activation, verify the installation with:
