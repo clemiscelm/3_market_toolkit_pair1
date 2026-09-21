@@ -64,10 +64,9 @@ def cumulative_returns(returns):
     pandas.Series
         Cumulative returns.
     """
-    # TODO: return  (1 + returns).cumprod() - 1
-    # Yes, it really is one line.
-
-    raise NotImplementedError("cumulative_returns")
+    # Compound the daily growth factors to obtain cumulative wealth growth and
+    # subtract the initial 1.0 baseline to express it as a return.
+    return (1 + returns).cumprod() - 1
 
 
 def annualized_volatility(returns, periods_per_year=252):
@@ -88,12 +87,10 @@ def annualized_volatility(returns, periods_per_year=252):
     -------
     float
     """
-    # TODO 1: compute the daily standard deviation with  returns.std()
-
-    # TODO 2: multiply by  np.sqrt(periods_per_year)  and return as a float
-    #         HINT: wrap in  float(...)  so tests get a plain float, not a numpy scalar
-
-    raise NotImplementedError("annualized_volatility")
+    # Daily volatility is the standard deviation of the return series. Scaling it
+    # by the square root of the number of periods per year annualizes it.
+    daily_vol = returns.std()
+    return float(daily_vol * np.sqrt(periods_per_year))
 
 
 def sharpe_ratio(returns, risk_free_rate=0.02, periods_per_year=252):
@@ -115,16 +112,11 @@ def sharpe_ratio(returns, risk_free_rate=0.02, periods_per_year=252):
     -------
     float
     """
-    # TODO 1: compute the annualized mean return
-    #         annual_mean = returns.mean() * periods_per_year
-
-    # TODO 2: compute the annualized volatility
-    #         HINT: you already wrote a function for this — call it!
-    #         annual_vol = annualized_volatility(returns, periods_per_year)
-
-    # TODO 3: return  (annual_mean - risk_free_rate) / annual_vol  as float
-
-    raise NotImplementedError("sharpe_ratio")
+    # Annualize the mean return and the volatility, then compute the excess-
+    # return Sharpe ratio relative to the chosen risk-free rate.
+    annual_mean = returns.mean() * periods_per_year
+    annual_vol = annualized_volatility(returns, periods_per_year)
+    return float((annual_mean - risk_free_rate) / annual_vol)
 
 
 def max_drawdown(cum_returns):
