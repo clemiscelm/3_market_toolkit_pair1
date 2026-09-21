@@ -38,11 +38,12 @@ def daily_returns(prices):
     pandas.Series
         Daily returns. Length is  len(prices) - 1  after dropping the leading NaN.
     """
-    # TODO 1: use  prices.pct_change()  — pandas does the (p_t / p_{t-1}) - 1 for you
+    # pandas computes (p_t / p_{t-1}) - 1 directly for each row, so the first
+    # value is NaN because there is no previous price to compare against.
+    returns = prices.pct_change()
 
-    # TODO 2: drop the leading NaN with  .dropna()  and return the result
-
-    raise NotImplementedError("daily_returns")
+    # Drop the leading NaN introduced by the first comparison and return the result.
+    return returns.dropna()
 
 
 def cumulative_returns(returns):
