@@ -10,7 +10,7 @@ Component B of MSA-DATI07-01 · Python Environments and Engineering Workflows.
 <!-- This is one of the shared files — you WILL hit a merge conflict here. That is expected. -->
 
 - Partner A: Clément Bostyn
-- Partner B: Clément Morel
+
 - Partner C: Edward Cardona
 
 ## Setup
@@ -46,6 +46,38 @@ From the project root, run the summary script:
 This checks the raw CSV files in `data/raw/`, prints a one-line summary per ticker to the terminal, and writes the same output to `logs/fetch_YYYY-MM-DD.log`.
 
 To generate the cumulative-return chart and print the per-ticker metrics:
+Run both commands from the repository root, with the virtual environment activated.
+
+### 1. Check the raw data — `./scripts/fetch_prices.sh`
+
+```bash
+chmod +x scripts/fetch_prices.sh   # first time only
+./scripts/fetch_prices.sh
+```
+
+Inspects every CSV in `data/raw/` and prints a daily summary: one line per
+ticker with its number of data rows, then the total number of files.
+
+- **Output file:** `logs/fetch_YYYY-MM-DD.log` (same content as the console).
+- **Exit code:** `0` on success; `1` with an error on stderr if `data/raw/` is
+  missing or contains no `.csv` file.
+
+### 2. Run the analysis — `python -m src.demo`
+
+```bash
+python -m src.demo
+```
+
+Loads all prices from `data/raw/`, then for each ticker computes daily returns,
+cumulative returns, Sharpe ratio and max drawdown, and prints a one-line summary
+(Sharpe, max drawdown, final cumulative return).
+
+- **Output file:** `outputs/cumulative_returns.png` — cumulative returns of all
+  tickers on a single chart (the `outputs/` folder is created if needed).
+
+Run it with `-m` from the repository root so that the `src` package imports resolve.
+
+## Structure
 
 ```bash
 python -m src.demo
