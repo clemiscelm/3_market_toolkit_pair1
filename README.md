@@ -10,8 +10,8 @@ Component B of MSA-DATI07-01 · Python Environments and Engineering Workflows.
 <!-- This is one of the shared files — you WILL hit a merge conflict here. That is expected. -->
 
 - Partner A: Clément Bostyn
-- Partner B: _name of partner_
-- Partner C: _name of partner_
+- Partner B: Clément Morel
+- Partner C: Edward Cardona
 
 ## Setup
 
@@ -37,17 +37,28 @@ python -m pytest tests/ -v
 
 ## How to run
 
-<!-- TODO (Partner B): describe how to run  scripts/fetch_prices.sh  and  src/demo.py . -->
-<!-- Include what output files each command produces. -->
+From the project root, run the summary script:
+
+```bash
+./scripts/fetch_prices.sh
+```
+
+This checks the raw CSV files in `data/raw/`, prints a one-line summary per ticker to the terminal, and writes the same output to `logs/fetch_YYYY-MM-DD.log`.
+
+To generate the cumulative-return chart and print the per-ticker metrics:
+
+```bash
+python -m src.demo
+```
+
+This reads all price files, prints a summary for each ticker, and saves the chart to `outputs/cumulative_returns.png`.
 
 ## Structure
 
-<!-- TODO (both): describe what each folder is for. Keep it short — 1 line each. -->
-
-- `data/raw/` — original CSV price data kept unchanged as the source for ingestion and analysis.
-- `src/` — Python source code for loading, cleaning, analyzing, and demonstrating the price data.
-- `scripts/` —
-- `tests/` —
+- `data/raw/` — original CSV price data used as the source for ingestion and analysis.
+- `src/` — Python modules for loading, cleaning, calculating metrics, and demonstrating the workflow.
+- `scripts/` — shell utilities for validating the raw data and writing a daily summary log.
+- `tests/` — tests that define the expected behavior for ingestion and metrics calculations.
 
 ## Development workflow
 
