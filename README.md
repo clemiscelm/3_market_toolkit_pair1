@@ -11,7 +11,7 @@ Component B of MSA-DATI07-01 · Python Environments and Engineering Workflows.
 
 - Partner A: Clément Bostyn
 - Partner B: _name of partner_
-- Partner C: _name of partner_
+- Partner C: Edward Cardona
 
 ## Setup
 
